@@ -22,7 +22,7 @@ const {
 </script>
 
 <template>
-  <Panel toggleable collapsed>
+  <Panel toggleable>
     <template #header><h1 class="font-black">Таблица №2. Долги курьеров</h1> </template>
     <template #default>
       <DataTable

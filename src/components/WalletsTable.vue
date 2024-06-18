@@ -19,7 +19,7 @@ const {
 </script>
 
 <template>
-  <Panel toggleable collapsed>
+  <Panel toggleable>
     <template #header><h1 class="font-black">Таблица №4. Кошельки</h1> </template>
     <template #default>
       <DataTable stripedRows size="small" :value="walletTransactions">

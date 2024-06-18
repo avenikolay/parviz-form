@@ -35,12 +35,25 @@ export default function useWallets() {
     return walletTransactions.value.reduce((acc, item) => (acc += item.amount), 0);
   });
 
+  const totalAlifTransactions = computed(() => {
+    return walletTransactions.value
+      .filter((transaction) => transaction.walletType === 'Алиф')
+      .reduce((acc, item) => (acc += item.amount), 0);
+  });
+  const totalDCTransactions = computed(() => {
+    return walletTransactions.value
+      .filter((transaction) => transaction.walletType === 'DC')
+      .reduce((acc, item) => (acc += item.amount), 0);
+  });
+
   return {
     walletTypes,
     walletTransactions,
     walletForm,
     isWalletFormValid,
     totalWalletTransactions,
+    totalAlifTransactions,
+    totalDCTransactions,
     addWalletTransaction,
     deleteWalletTransaction
   };
