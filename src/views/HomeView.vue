@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { provide } from 'vue';
+import { computed, provide } from 'vue';
 
 import CostsTable from '@/components/CostsTable.vue';
 import CouriersTable from '@/components/CouriersTable.vue';
@@ -12,18 +12,35 @@ import useCosts from '@/composables/useCosts';
 import useCouriers from '@/composables/useCouriers';
 import useWallets from '@/composables/useWallets';
 import useCash from '@/composables/useCash';
+import useGeneralSales from '@/composables/useGeneralSales';
+import FinalTable from '@/components/FinalTable.vue';
 
 //TODO: переименовать на cost
 const { totalCosts, ...costStore } = useCosts();
-const { totalCash, ...cashStore } = useCash();
+const { totalCash, change, finalCash, ...cashStore } = useCash();
 const { totalAlifTransactions, totalDCTransactions, ...walletsStore } = useWallets();
 const { totalCouriersTransactions, ...couriersStore } = useCouriers();
+const { last, ...generalStore } = useGeneralSales();
+
+const total = computed(() => {
+  return (
+    finalCash.value +
+    totalAlifTransactions.value +
+    totalDCTransactions.value +
+    totalCosts.value +
+    change.value +
+    totalCouriersTransactions.value
+  );
+});
 
 provide('costsStore', { totalCosts, ...costStore });
 provide('couriersStore', { totalCouriersTransactions, ...couriersStore });
-provide('cashStore', { totalCash, ...cashStore });
+provide('cashStore', { totalCash, change, finalCash, ...cashStore });
 provide('walletsStore', {
   ...walletsStore
+});
+provide('generalSalesStore', {
+  ...generalStore
 });
 </script>
 
@@ -42,14 +59,19 @@ provide('walletsStore', {
       <WalletsTable />
     </div>
     <div class="mb-7"><GeneralSales /></div>
-    <div>
+    <div class="mb-7">
       <GeneralAmount
-        :cash="totalCash"
+        :change="change"
+        :finalCash="finalCash"
         :alif="totalAlifTransactions"
         :dc="totalDCTransactions"
         :cost="totalCosts"
         :couriers="totalCouriersTransactions"
+        :total="total"
       />
+    </div>
+    <div>
+      <FinalTable :last="last" :total="total" />
     </div>
   </main>
 </template>

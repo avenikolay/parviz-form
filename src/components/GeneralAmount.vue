@@ -4,7 +4,11 @@ import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import { computed } from 'vue';
 const props = defineProps({
-  cash: {
+  finalCash: {
+    type: Number,
+    default: 0
+  },
+  change: {
     type: Number,
     default: 0
   },
@@ -23,15 +27,22 @@ const props = defineProps({
   couriers: {
     type: Number,
     default: 0
+  },
+  total: {
+    type: Number,
+    default: 0
   }
 });
+
 const generalAmount = computed(() => {
   return [
-    { name: 'Наличные', amount: props.cash },
+    { name: 'Наличные', amount: props.finalCash },
     { name: 'alif', amount: props.alif },
     { name: 'dc', amount: props.dc },
     { name: 'Расход', amount: props.cost },
-    { name: 'Долги курьерам', amount: props.couriers }
+    { name: 'Мелочь след. смены', amount: props.change },
+    { name: 'Долги курьерам', amount: props.couriers },
+    { name: 'Всего', amount: props.total }
   ];
 });
 </script>

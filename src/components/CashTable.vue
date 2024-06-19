@@ -5,7 +5,7 @@ import Column from 'primevue/column';
 import InputNumber from 'primevue/inputnumber';
 import { inject } from 'vue';
 
-const { cash, totalCash, onCellEditComplete } = inject('cashStore') as any;
+const { cash, totalCash, change, finalCash, onCellEditComplete } = inject('cashStore') as any;
 </script>
 <template>
   <Panel toggleable>
@@ -24,8 +24,13 @@ const { cash, totalCash, onCellEditComplete } = inject('cashStore') as any;
           </template>
         </Column>
         <Column style="width: 20%" field="denomination" header="Номинал">
-          <template #body="{ data: { denomination } }">
-            <span class="font-bold">{{ denomination }} TJS</span></template
+          <template #body="{ data: { denomination, value, type } }">
+            <span class="font-bold"
+              >{{ value === 'somoni' ? denomination : denomination * 100 }}
+              {{ value === 'somoni' ? 'сомони' : 'дирам' }} ({{
+                type === 'banknote' ? 'купюра' : 'монета'
+              }})</span
+            ></template
           >
         </Column>
         <Column>
@@ -38,6 +43,8 @@ const { cash, totalCash, onCellEditComplete } = inject('cashStore') as any;
         </Column>
       </DataTable>
     </template>
-    <template #footer> Всего: {{ totalCash }} </template>
+    <template #footer>
+      Всего: {{ totalCash }} , Наличка: {{ finalCash }}, Мелочь: {{ change }}
+    </template>
   </Panel>
 </template>
