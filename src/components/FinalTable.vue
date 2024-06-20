@@ -12,6 +12,18 @@ const props = defineProps({
   total: {
     type: Number,
     default: 0
+  },
+  previousShiftCash: {
+    type: Number,
+    default: 0
+  },
+  previousShiftCashless: {
+    type: Number,
+    default: 0
+  },
+  finalCash: {
+    type: Number,
+    default: 0
   }
 });
 
@@ -22,8 +34,9 @@ const table = computed(() => [
     value: diff.value < 0 ? Math.abs(diff.value) : 0
   },
   { key: 'Излишек:', value: diff.value > 0 ? diff.value : 0 },
-  { key: 'Наличка предыдущей смены:', value: 0 },
-  { key: 'Итого налички:', value: 0 }
+  { key: 'Наличка предыдущей смены:', value: props.previousShiftCash },
+  { key: 'Безналичка предыдущей смены:', value: props.previousShiftCashless },
+  { key: 'Итого налички:', value: props.previousShiftCash + props.finalCash }
 ]);
 </script>
 

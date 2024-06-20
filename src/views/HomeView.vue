@@ -7,15 +7,19 @@ import CashTable from '@/components/CashTable.vue';
 import WalletsTable from '@/components/WalletsTable.vue';
 import GeneralSales from '@/components/GeneralSales.vue';
 import GeneralAmount from '@/components/GeneralAmount.vue';
+import FinalTable from '@/components/FinalTable.vue';
+import PreviousShift from '@/components/PreviousShift.vue';
 
+import usePreviousShift from '@/composables/usePreviousShift';
 import useCosts from '@/composables/useCosts';
 import useCouriers from '@/composables/useCouriers';
 import useWallets from '@/composables/useWallets';
 import useCash from '@/composables/useCash';
 import useGeneralSales from '@/composables/useGeneralSales';
-import FinalTable from '@/components/FinalTable.vue';
 
 //TODO: переименовать на cost
+const { previousShift, previousShiftCash, previousShiftCashless, ...previousShiftStore } =
+  usePreviousShift();
 const { totalCosts, ...costStore } = useCosts();
 const { totalCash, change, finalCash, ...cashStore } = useCash();
 const { totalAlifTransactions, totalDCTransactions, ...walletsStore } = useWallets();
@@ -33,6 +37,7 @@ const total = computed(() => {
   );
 });
 
+provide('previousShiftStore', { previousShift, ...previousShiftStore });
 provide('costsStore', { totalCosts, ...costStore });
 provide('couriersStore', { totalCouriersTransactions, ...couriersStore });
 provide('cashStore', { totalCash, change, finalCash, ...cashStore });
@@ -46,6 +51,9 @@ provide('generalSalesStore', {
 
 <template>
   <main class="container p-5 mx-auto">
+    <div class="mb-7">
+      <PreviousShift />
+    </div>
     <div class="mb-7">
       <CostsTable />
     </div>
@@ -71,7 +79,13 @@ provide('generalSalesStore', {
       />
     </div>
     <div>
-      <FinalTable :last="last" :total="total" />
+      <FinalTable
+        :last="last"
+        :total="total"
+        :previousShiftCash="previousShiftCash"
+        :previousShiftCashless="previousShiftCashless"
+        :finalCash="finalCash"
+      />
     </div>
   </main>
 </template>
