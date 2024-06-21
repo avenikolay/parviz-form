@@ -19,8 +19,8 @@ const {
 </script>
 
 <template>
-  <Panel toggleable>
-    <template #header><h1 class="font-black">Таблица №4. Кошельки</h1> </template>
+  <Panel>
+    <template #header><h1 class="font-black">Кошельки</h1> </template>
     <template #default>
       <DataTable stripedRows size="small" :value="walletTransactions">
         <Column field="amount" />

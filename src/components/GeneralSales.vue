@@ -8,7 +8,7 @@ const { generalSales, onGeneralSalesCellEditComplete } = inject('generalSalesSto
 </script>
 
 <template>
-  <Panel toggleable>
+  <Panel>
     <template #header><h1 class="font-black">Общая торговля</h1> </template>
     <template #default>
       <DataTable

@@ -8,8 +8,8 @@ import { inject } from 'vue';
 const { cash, totalCash, change, finalCash, onCellEditComplete } = inject('cashStore') as any;
 </script>
 <template>
-  <Panel toggleable>
-    <template #header><h1 class="font-black">Таблица №3. Подсчет налички</h1> </template>
+  <Panel>
+    <template #header><h1 class="font-black">Подсчет налички</h1> </template>
     <template #default>
       <DataTable
         stripedRows
@@ -24,14 +24,17 @@ const { cash, totalCash, change, finalCash, onCellEditComplete } = inject('cashS
           </template>
         </Column>
         <Column style="width: 20%" field="denomination" header="Номинал">
-          <template #body="{ data: { denomination, value, type } }">
+          <template #body="{ data: { denomination, value } }">
             <span class="font-bold"
               >{{ value === 'somoni' ? denomination : denomination * 100 }}
-              {{ value === 'somoni' ? 'сомони' : 'дирам' }} ({{
-                type === 'banknote' ? 'купюра' : 'монета'
-              }})</span
+              {{ value === 'somoni' ? 'сомони' : 'дирам' }}</span
             ></template
           >
+        </Column>
+        <Column header="Тип">
+          <template #body="{ data: { type } }">
+            {{ type === 'banknote' ? 'Купюра' : 'Монета' }}
+          </template>
         </Column>
         <Column>
           <Column
@@ -39,7 +42,9 @@ const { cash, totalCash, change, finalCash, onCellEditComplete } = inject('cashS
             style="width: 10%; min-width: 8rem"
             bodyStyle="text-align:center"
           ></Column>
-          <template #body="{ data: { qty, denomination } }"> {{ qty * denomination }} TJS</template>
+          <template #body="{ data: { qty, denomination } }">
+            {{ qty * denomination }} сомони</template
+          >
         </Column>
       </DataTable>
     </template>

@@ -41,8 +41,8 @@ const table = computed(() => [
 </script>
 
 <template>
-  <Panel toggleable>
-    <template #header><h1 class="font-black">Итого:</h1> </template>
+  <Panel>
+    <template #header><h1 class="font-black">Итого:</h1></template>
     <template #default>
       <DataTable :value="table" stripedRows size="small">
         <Column field="key"></Column>

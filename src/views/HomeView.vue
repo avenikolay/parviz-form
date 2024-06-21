@@ -16,6 +16,7 @@ import useCouriers from '@/composables/useCouriers';
 import useWallets from '@/composables/useWallets';
 import useCash from '@/composables/useCash';
 import useGeneralSales from '@/composables/useGeneralSales';
+import StartTable from '@/components/StartTable.vue';
 
 //TODO: переименовать на cost
 const { previousShift, previousShiftCash, previousShiftCashless, ...previousShiftStore } =
@@ -53,6 +54,9 @@ provide('generalSalesStore', {
   <main class="container p-5 mx-auto">
     <div class="mb-7">
       <PreviousShift />
+    </div>
+    <div class="mb-7">
+      <StartTable />
     </div>
     <div class="mb-7">
       <CostsTable />

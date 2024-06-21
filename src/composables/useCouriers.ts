@@ -6,14 +6,14 @@ export default function useCouriers() {
   const courierForm = reactive({
     name: '',
     amount: 0,
-    type: ''
+    comment: ''
   });
 
   const addCourierTransaction = () => {
     courierTransactions.value.push({ ...courierForm, id: courierTransactions.value.length + 1 });
     courierForm.name = '';
     courierForm.amount = 0;
-    courierForm.type = '';
+    courierForm.comment = '';
   };
 
   const deleteCourierTransaction = ({ data: { id } }: any) => {
@@ -28,7 +28,7 @@ export default function useCouriers() {
   });
 
   const isCourierFormValid = computed(() => {
-    return courierForm.name && courierForm.amount > 0 && courierForm.type;
+    return courierForm.name && courierForm.amount;
   });
 
   return {

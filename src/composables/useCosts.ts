@@ -6,7 +6,8 @@ export default function useCosts() {
   const costForm = reactive({
     name: '',
     amount: 0,
-    type: ''
+    type: '',
+    comment: ''
   });
 
   const addCost = () => {
@@ -14,6 +15,7 @@ export default function useCosts() {
     costForm.name = '';
     costForm.amount = 0;
     costForm.type = '';
+    costForm.comment = '';
   };
 
   const deleteCost = ({ data: { id } }: any) => {

@@ -9,7 +9,7 @@ const { previousShift, onChangePreviousShiftValue } = inject('previousShiftStore
 </script>
 
 <template>
-  <Panel toggleable>
+  <Panel>
     <template #header><h1 class="font-black">Предыдущая смена</h1> </template>
     <template #default>
       <DataTable

@@ -7,9 +7,19 @@ import Button from 'primevue/button';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Panel from 'primevue/panel';
+import Input from 'primevue/inputtext';
 
-const names = ['Николай', 'Парвиз'];
-const types = ['Зарплата', 'Заправка'];
+const names = [
+  'Дамир',
+  'Виталий',
+  'Далер',
+  'Мехроч',
+  'Махмуд',
+  'Набичон',
+  'Чонибек',
+  'Шахзод',
+  'Другой'
+];
 
 const {
   courierTransactions,
@@ -22,8 +32,8 @@ const {
 </script>
 
 <template>
-  <Panel toggleable>
-    <template #header><h1 class="font-black">Таблица №2. Долги курьеров</h1> </template>
+  <Panel>
+    <template #header><h1 class="font-black">Долги курьеров</h1> </template>
     <template #default>
       <DataTable
         stripedRows
@@ -33,7 +43,7 @@ const {
       >
         <Column field="name" header="Имя"></Column>
         <Column field="amount" header="Сумма"></Column>
-        <Column field="type" header="Тип расхода"></Column>
+        <Column field="comment" header="Комментарий"></Column>
         <Column>
           <template #body="slotProps">
             <Button
@@ -57,12 +67,7 @@ const {
           v-model="courierForm.name"
         />
         <InputNumber min="0" placeholder="Введите сумму" v-model="courierForm.amount" />
-        <Select
-          class="w-full md:w-56"
-          v-model="courierForm.type"
-          :options="types"
-          placeholder="Выберите тип расхода:"
-        />
+        <Input placeholder="Комментарий" v-model="courierForm.comment" />
         <Button
           :disabled="!isCourierFormValid"
           @click="addCourierTransaction"
